@@ -1,0 +1,4 @@
+.venv-sudachi-test/
+.venv/
+venv/
+__pycache__/
