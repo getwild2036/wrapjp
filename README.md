@@ -14,7 +14,8 @@ or awkward lines.
 - Falls back to built-in rules when SudachiPy is not installed.
 - Avoids common Japanese line-start and line-end problems.
 - Keeps lines within the target width.
-- Writes UTF-8 output safely on Windows with `-o`.
+- Preserves line breaks already present in the input text.
+- Writes UTF-8 output with Windows `CRLF` line endings when using `-o`.
 
 ## Install
 
@@ -63,4 +64,3 @@ The generated sample output in this repository was checked with:
 - Lines over 86: 0
 - Too-short non-final lines under the configured minimum: 0
 - Detected common word-split patterns: 0
-

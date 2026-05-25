@@ -530,25 +530,28 @@ def main() -> int:
     else:
         text = sys.stdin.read()
 
-    paragraphs = re.split(r"\n\s*\n", text.strip())
     try:
-        wrapped = [
-            wrap_japanese(
-                p.replace("\n", ""),
-                args.target,
-                args.min_ratio,
-                args.engine,
-                args.sudachi_mode,
-                args.naturalness_weight,
+        wrapped = []
+        for source_line in text.splitlines():
+            if not source_line.strip():
+                wrapped.append("")
+                continue
+            wrapped.append(
+                wrap_japanese(
+                    source_line,
+                    args.target,
+                    args.min_ratio,
+                    args.engine,
+                    args.sudachi_mode,
+                    args.naturalness_weight,
+                )
             )
-            for p in paragraphs
-        ]
     except RuntimeError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
-    output = "\n\n".join(wrapped)
+    output = "\n".join(wrapped)
     if args.output:
-        with open(args.output, "w", encoding="utf-8", newline="\n") as f:
+        with open(args.output, "w", encoding="utf-8", newline="\r\n") as f:
             f.write(output + "\n")
     else:
         print(output)
