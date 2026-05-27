@@ -1446,7 +1446,7 @@ def wrap_japanese(
     engine: str = "auto",
     sudachi_mode: str = "C",
     naturalness_weight: float = 8.0,
-    strategy: str = "legacy",
+    strategy: str = "global-cost",
     acceptable_cost: float = DEFAULT_ACCEPTABLE_COST,
 ) -> str:
     if strategy == "legacy":
@@ -1510,7 +1510,7 @@ def wrap_document(
     sudachi_mode: str = "C",
     naturalness_weight: float = 8.0,
     input_breaks: str = "preserve",
-    strategy: str = "legacy",
+    strategy: str = "global-cost",
     acceptable_cost: float = DEFAULT_ACCEPTABLE_COST,
 ) -> str:
     source_lines = text.splitlines() if input_breaks == "preserve" else reflow_paragraphs(text)
@@ -1578,8 +1578,8 @@ def main() -> int:
     parser.add_argument(
         "--strategy",
         choices=("legacy", "cost", "global-cost"),
-        default="legacy",
-        help="legacy is stable; cost and global-cost are comparison strategies",
+        default="global-cost",
+        help="wrapping strategy: global-cost is the default; legacy reproduces older behavior",
     )
     parser.add_argument(
         "--acceptable-cost",

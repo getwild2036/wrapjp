@@ -296,6 +296,17 @@ class AcademicDocumentTests(unittest.TestCase):
         self.assertIn("場合の\n", wrapped)
 
     @unittest.skipIf(jw.dictionary is None, "SudachiPy is not installed")
+    def test_global_cost_is_the_default_strategy(self):
+        text = (
+            "報告書には、エラーが含まれていた場合の異常終了や、認証情報が欠落していた場合の"
+            "警告の内容が並び、担当者は再試行の可否を確認した。"
+        )
+        self.assertEqual(
+            jw.wrap_japanese(text, target=42, engine="sudachi"),
+            jw.wrap_japanese(text, target=42, engine="sudachi", strategy="global-cost"),
+        )
+
+    @unittest.skipIf(jw.dictionary is None, "SudachiPy is not installed")
     def test_global_cost_allows_comma_before_adverbial_yagate(self):
         cases = [
             ("鉛筆を", "持ち替えて、"),

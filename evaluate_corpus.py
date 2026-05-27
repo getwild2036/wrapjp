@@ -314,7 +314,7 @@ def main() -> int:
     parser.add_argument("-n", "--target", type=int, default=86)
     parser.add_argument("--min-ratio", type=float, default=0.86)
     parser.add_argument("--naturalness-weight", type=float, default=8.0)
-    parser.add_argument("--strategy", choices=("legacy", "cost", "global-cost"), default="legacy")
+    parser.add_argument("--strategy", choices=("legacy", "cost", "global-cost"), default="global-cost")
     parser.add_argument("--acceptable-cost", type=float, default=jw.DEFAULT_ACCEPTABLE_COST)
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--report", type=Path, default=Path("evaluation_report.csv"))
