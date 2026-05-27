@@ -347,16 +347,6 @@ def closes_quotation_before_reporting(prefix: str, remaining: str) -> bool:
     )
 
 
-LIGHT_PRENOMINAL_BREAKS = ("期限切れの",)
-
-
-def is_acceptable_genitive_boundary(before: str, after: str) -> bool:
-    """Allow reviewed prenominal breaks without weakening ordinary genitives."""
-    if before.endswith("の") and after.startswith("番号を読み上げ、"):
-        return True
-    return before.endswith(LIGHT_PRENOMINAL_BREAKS) and bool(after)
-
-
 def semantic_break_cost(
     text: str,
     index: int,
@@ -374,15 +364,6 @@ def semantic_break_cost(
     if before.endswith("では") and after.startswith(("なく", "ない", "なかっ", "ありません")):
         return FORBIDDEN_BREAK_COST
     cost = raw
-    if (
-        before.endswith("の")
-        and after[:1]
-        and not is_acceptable_genitive_boundary(before, after)
-        and (
-        is_kanji(after[0]) or is_katakana(after[0])
-        )
-    ):
-        cost += 160
     if before.endswith("な") and after[:1] and (
         is_kanji(after[0]) or is_katakana(after[0])
     ):
